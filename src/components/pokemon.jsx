@@ -1,34 +1,37 @@
 import { Fragment, useState } from "react";
 import "./pokemon.css";
-const pokemon = require("pokemon");
 var _ = require("lodash");
 
 const PokemonComponent = () => {
-  const [pmon, setPmon] = useState(pokemon.random().toLowerCase().trim());
+  const [pmon, setPmon] = useState();
   const [img, setImg] = useState();
 
-  fetch(`https://pokeapi.co/api/v2/pokemon/${pmon}`)
-    .then((response) => response.json())
-    .then((data) => {
-      setImg(data.sprites.other["official-artwork"].front_default);
-    })
-    .catch((error) => {
-      console.log("Error!!!!");
-      window.location.reload(false);
-    });
+  function randomInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
   const handleClick = () => {
-    const randomP = pokemon.random();
-    setPmon(randomP.toLowerCase().trim());
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pmon}`)
+    fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0")
       .then((response) => response.json())
       .then((data) => {
-        console.log();
-        setImg(data.sprites.other["official-artwork"].front_default);
-      })
-      .catch((error) => {
-        console.log("Error!!!!");
-        window.location.reload(false);
+        const pmonCount = data.results.length;
+        //console.log(pmonCount);
+        const x = randomInteger(1, pmonCount);
+        const pmonName = data.results[x].name;
+        const pmonUrl = data.results[x].url;
+        setPmon(pmonName);
+        console.log(pmonName);
+        console.log(pmonUrl);
+        fetch(pmonUrl)
+          .then((response) => response.json())
+          .then((data) => {
+            const imgUrl = data.sprites.other["official-artwork"].front_default;
+            if (imgUrl !== null) {
+              setImg(imgUrl);
+            } else {
+              handleClick();
+            }
+          });
       });
   };
 
