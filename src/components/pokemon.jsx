@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react";
 import "./pokemon.css";
+import { Button } from "react-bootstrap";
 var _ = require("lodash");
 
 const PokemonComponent = () => {
@@ -37,13 +38,17 @@ const PokemonComponent = () => {
 
   return (
     <Fragment>
-      <div>
-        <img src={`${img}`} alt="" className="pokemon-image" />
+      <div className="poke-container">
+        <div className="poke-image">
+          <img src={`${img}`} alt="" className="img" />
+        </div>
+        <div className="poke-text">
+          <h2>{_.capitalize(pmon)}</h2>
+        </div>
+        <Button onClick={handleClick} variant="dark">
+          Generate!
+        </Button>
       </div>
-      <div>
-        <h2>{_.capitalize(pmon)}</h2>
-      </div>
-      <button onClick={handleClick}>Generate!</button>
     </Fragment>
   );
 };

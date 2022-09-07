@@ -1,4 +1,35 @@
-.pokemon-image {
-  width: 50%;
-  height: 50%;
+.poke-image {
+  border: solid #0f0f0f;
+  border-width: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.img {
+  border-style: none;
+  width: 25%;
+  height: 25%;
+}
+
+.poke-container {
+  background-color: #ebcf34;
+  width: auto;
+  height: auto;
+  padding: 15px;
+}
+
+.btn {
+  margin: 0 auto;
+  justify-content: center;
+  display: flex;
+}
+
+.poke-text {
+  color: #121212;
+  font-size: xx-large;
+  font-family: "Fredoka One", cursive;
+  margin: 0 auto;
+  justify-content: center;
+  display: flex;
+  padding: 15px;
 }
